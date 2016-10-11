@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-    return knex.schema.createTableIfNotExists('comments-votes', function(table) {
+     knex.schema.createTableIfNotExists('comments-votes', function(table) {
         table.increments();
         table.integer('comment_id');
         table.foreign('comment_id').references('comments.id');

@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('comments', function (table) {
+   knex.schema.createTableIfNotExists('comments', function (table) {
     table.increments();
     table.integer('post_id').unsigned();
     table.foreign('post_id').references('id').inTable('posts').onDelete('CASCADE');
@@ -12,5 +12,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('comments');
+   knex.schema.dropTableIfExists('comments');
 };
