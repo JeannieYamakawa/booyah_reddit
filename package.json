@@ -1,5 +1,5 @@
 {
-  "name": "app_name",
+  "name": "booyah_reddit",
   "version": "0.0.1",
   "description": "",
   "main": "server.js",
@@ -13,7 +13,7 @@
     "heroku-postbuild": "knex migrate:latest",
     "nodemon": "nodemon server.js"
   },
-  "author": "FIRSTNAME LASTNAME <EMAIL@DOMAIN.COM>",
+  "author": "Jeannie Yamakawa <jkyamakawa@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",

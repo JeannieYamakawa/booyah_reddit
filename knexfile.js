@@ -8,7 +8,7 @@ module.exports = {
         client: 'pg',
         connection: {
             host: '127.0.0.1',
-            database: ''
+            database: 'booyah_reddit_dev'
         }
     },
 
@@ -16,7 +16,7 @@ module.exports = {
         client: 'pg',
         connection: {
             host: '127.0.0.1',
-            database: ''
+            database: 'booyah_reddit_test'
         }
     },
 
