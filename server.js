@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(session({
-  name: 'NAME OF PROJECT',
+  name: 'booyah_reddit',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
@@ -41,13 +41,13 @@ const checkAuth = function(req, res, next) {
   next();
 }
 
-Declare routes variables
-const users = require('routes/users');
-const token = require('routes/token');
+// Declare routes variables
+const users = require('./routes/users');
+const token = require('./routes/token');
 
-// // Assign Routes to Server
-// app.use(users);
-// app.use(token);
+// Assign Routes to Server
+app.use(users);
+app.use(token);
 
 
 const port = process.env.PORT || 3000;
