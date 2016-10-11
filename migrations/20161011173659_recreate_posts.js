@@ -4,8 +4,8 @@ exports.up = function(knex, Promise) {
         table.text('title').notNullable();
         table.text('body').notNullable();
         table.text('link');
-        table.integer('user_id').unsigned();
-        table.foreign('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
+        table.integer('user_id').unsigned().notNullable();
+        table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
         table.timestamps(true);
     })
 };
