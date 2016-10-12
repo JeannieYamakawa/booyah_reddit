@@ -44,11 +44,33 @@ router.get('/users/:user', function(req,res){
                 thisUsersPosts.push(data[i])
             }
         }
-        res.send(thisUsersPosts)
+        //needs EJS page...EJS page also includes button to edit user
+        res.send(thisUsersPosts);
     })
 })
 
-//NEED ROUTE FOR POSTING TO /users/:user
+// PATCH /users/:user
+// action for edit user info form\
+router.patch('/users/:user', function(req,res){
+    var userId = req.params.user;
+    var wholeUser = req.body;
+    var usernameToChange = wholeUser.username;
+    if (userId = req.session.user.id){
+        bcrypt.hash(req.body.password, 10).then(function(hashpw){
+            knex('users').update({
+                username: username,
+                hashed_password: hashpw
+            })
+            .then(function(){
+                res.send('we need an EJS page for this!')
+            })
+        })
+}else{
+    res.sendStatus(401);
+}
+})
+
+
 
 //page with form for editing user information
 router.get('/users/:user/edit',function(req,res){
@@ -57,26 +79,30 @@ router.get('/users/:user/edit',function(req,res){
     if (userRequestingEdit = userLoggedIn){
     knex('users').where('id', userLoggedIn)
         .then(function(data){
-
+            res.send(data)
+            //NEED TO DISPLAY EJS PAGE WITH FORM.
         })
-} else{
+    } else{
     res.sendStatus(401);
-}
+    }
 })
 
+//delete individual user
+router.delete('/users/:user', function(req,res) {
+    var userToDelete = req.params.username;
+    knex('comments').where('user_id', userToDelete).del()
+    .then(function(){
+        return knex('posts').where('user_id', userToDelete).del()
+        })
+    .then(function(){
+        return knex('users').where('id', userToDelete).del()
+        })
+    .then(function(){
+        res.redirect('/users')
+        })
+});
 
-//
-// router.post('/:id', function(req, res){
-//     var wholeComment = req.body;
-//     var iD = req.body.post_id;
-//     var postId = req.params.id;
-//     wholeComment.by_username = req.session.username;
-//     knex('comments').where('post_id', postId)
-//     .insert(wholeComment).then(function(){
-//         res.redirect('/posts/'+iD+'/comments')
-//
-//     })
-// })
+
 
 
 
