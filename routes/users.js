@@ -24,10 +24,11 @@ router.post('/users', function(req, res) {
     bcrypt.hash(req.body.password, 10).then((hashpw) => {
         console.log(hashpw);
         knex('users').insert({
-            // fill your user database however you need
+            username: req.body.username,
+            hashed_password: hashpw
         }).then((user) => {
-            console.log(user);
-            res.redirect('/users');
+            res.send(user);
+            // res.redirect('/users');
         });
     });
 });
@@ -92,14 +93,8 @@ router.get('/users/:user/edit',function(req,res){
 
 //delete individual user
 router.delete('/users/:user', function(req,res) {
-    var userToDelete = req.params.username;
-    knex('comments').where('user_id', userToDelete).del()
-    .then(function(){
-        return knex('posts').where('user_id', userToDelete).del()
-        })
-    .then(function(){
-        return knex('users').where('id', userToDelete).del()
-        })
+    var userToDelete = req.session.user.id;
+    knex('users').where('id', userToDelete).del()
     .then(function(){
         res.redirect('/users')
         })
