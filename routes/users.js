@@ -23,10 +23,8 @@ router.post('/users', function(req, res) {
         }).then((user) => {
             console.log(user);
             res.redirect('/users');
-        })
-
-    })
-
+        });
+    });
 });
 
 module.exports = router;
