@@ -10,10 +10,18 @@ const knex = require('../knex');
 
 describe('***SUITE HEADER***', () => {
 
-    xdescribe('suite subheader', () => {
+    describe('user homepage', () => {
 
-        it('User Story 1', (done) => {
-            done();
+        it('should display users name', (done) => {
+            request(app).get('/users/1')
+                .expect(200)
+                .end(function(err,res){
+                    if (err) {
+                        done(err)
+                    }
+                    expect(res.text).to.include('<h1>Welcome, Tim!');
+                    done();
+                })
         })
 
         it('User Story 2', (done) => {

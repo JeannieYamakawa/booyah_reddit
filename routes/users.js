@@ -36,18 +36,34 @@ router.post('/users', function(req, res) {
 // displays all posts by individual user
 router.get('/users/:user', function(req,res){
     var userId = req.params.user;
+    var thisUsersPosts =[];
+    var thisUsersComments=[];
+    var userName;
     //join table that includes posts made by users
     knex('users').innerJoin('posts', 'users.id', 'posts.user_id').then(function(data){
         // make an array of all the specific user's posts
-        var thisUsersPosts =[];
         for(let i=0; i<data.length; i++){
             if(data[i].user_id == userId){
                 thisUsersPosts.push(data[i])
             }
         }
+        userName =  thisUsersPosts[0].username;
+
         //needs EJS page...EJS page also includes button to edit user
-        res.send(thisUsersPosts);
+        // res.send(userName);
     })
+    .then(knex('users').innerJoin('comments', 'users.id', 'comments.user_id').then(function(data2){
+        for (let j=0; j<data2.length; j++){
+            if(data2[j].user_id == userId){
+                thisUsersComments.push(data2[j])
+            }
+        }
+
+        res.render('users/user', {thisUsersPosts:thisUsersPosts, thisUsersComments: thisUsersComments, userName: userName})
+
+    })
+
+)
 })
 
 // PATCH /users/:user
