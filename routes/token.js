@@ -38,6 +38,25 @@ router.post('/token', (req, res, next) => {
         })
 });
 
+
+//Handles user registration
+router.post('/signup', function(req, res) {
+    console.log(req.body);
+    bcrypt.hash(req.body.password, 10).then((hashpw) => {
+        console.log(hashpw);
+        knex('users').insert({
+            // fill your user database however you need
+        }).then((user) => {
+            console.log(user);
+            res.redirect('/users');
+        })
+
+    })
+
+});
+
+
+
 //handles logout users
 router.delete('/token', (req, res) => {
     req.session = null;
