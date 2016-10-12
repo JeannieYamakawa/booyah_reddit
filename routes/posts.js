@@ -14,7 +14,7 @@ router.get('/posts', function(req, res, next) {
                 .then(function(posts) {
                     knex('comments').orderBy('post_id')
                         .then(function(comments) {
-                            res.render('index', {
+                            res.render('posts', {
                                 user: user[0],
                                 posts: posts,
                                 comments: comments
