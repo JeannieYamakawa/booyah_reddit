@@ -49,7 +49,7 @@ const posts = require('./routes/posts');
 // Assign Routes to Server
 app.use(users);
 app.use(token);
-app.use('users/:user', posts);
+app.use('/users/:user', posts);
 
 
 const port = process.env.PORT || 3000;

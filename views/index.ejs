@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- jquery -->
-    <script   src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
-     <!-- semantic ui js -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.js" charset="utf-8"></script>
-     <!-- semantic ui css -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css">
-     <!-- my js -->
-     <script src="/app.js" charset="utf-8"></script>
-     <!-- my css -->
-     <link rel="stylesheet" href="/style.css">
+    <head>
+        <!-- jquery -->
+        <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+        <!-- semantic ui js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.js" charset="utf-8"></script>
+        <!-- semantic ui css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css">
+        <!-- my js -->
+        <script src="/app.js" charset="utf-8"></script>
+        <!-- my css -->
+        <link rel="stylesheet" href="/style.css">
 
-    <meta charset="utf-8">
-    <title>Title</title>
-  </head>
-  <body>
-    <h1>Index</h1>
-    <% for (var u = 0; u < users.length; u ++) { %>
-      <% for (var p = 0; p < posts.length; p ++) { %>
-        <% for (var c = 0; c < comments.length; c ++) { %>
-      if(users[i])
-      <%= posts[i].title %>
-      <%= posts[i].title %>
-    <% } %>
-  </body>
+        <meta charset="utf-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <h1>Index</h1>
+        <% for (var p = 0; p < posts.length; p ++) { %>
+            <%= user.username %>
+            <%= posts[p].title %>
+            <%= posts[p].body %>
+            <%= posts[p].link %>
+            <ul>
+                <% for (var c = 0; c < comments.length; c ++) { %>
+                    <% if (comments[c].post_id === posts[p].id) %>
+                    <li>
+                        <%= comments[c].body %>
+                    </li>
+                </ul>
+            <% } %>
+        <% } %>
+    </body>
 </html>

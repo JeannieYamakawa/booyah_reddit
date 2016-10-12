@@ -2,17 +2,18 @@
 
 const express = require('express');
 const router = express.Router({
-  mergeParams: true
+    mergeParams: true
 });
 var knex = require('../knex');
 var bcrypt = require('bcrypt-as-promised');
 
-router.get('/posts', function(req, res, next) {
-    knex('users').orderBy('id').then(function(users) {
-        knex('posts').orderBy('user_id').then(function(posts) {
-            knex('comments').orderBy('post_id').then(function(comments) {
+sdzd
+    knex('users').where('id', req.params.user).then(function(user) {
+      console.dir(req.params); next()
+        knex('posts').where('user_id', req.params.user).then(function(posts) {
+            knex('comments').orderBy('post_id', postIds).then(function(comments) {
                 res.render('index', {
-                    users: users,
+                    user: user[0],
                     posts: posts,
                     comments: comments
                 })
