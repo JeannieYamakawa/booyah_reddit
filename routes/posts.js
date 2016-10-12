@@ -7,6 +7,24 @@ const router = express.Router({
 var knex = require('../knex');
 var bcrypt = require('bcrypt-as-promised');
 
+router.get('/', function(req, res, next) {
+    knex('users')
+        .then(function(users) {
+            knex('posts').orderBy('id')
+                .then(function(posts) {
+                    knex('comments').orderBy('post_id')
+                        .then(function(comments) {
+                            res.render('posts/posts', {
+                                user: users,
+                                posts: posts,
+                                comments: comments
+                            })
+                        })
+                })
+        })
+});
+
+
 router.get('/posts', function(req, res, next) {
     knex('users').where('id', req.params.user)
         .then(function(user) {
@@ -83,7 +101,7 @@ router.post('/posts', function(req, res, next) {
         body: req.body.content,
         link: req.body.link
     }).then(function() {
-      res.redirect('/posts');
+        res.redirect('/posts');
     })
 
 });
@@ -95,14 +113,14 @@ router.patch('/posts/:post', function(req, res, next) {
         body: req.body.content,
         link: req.body.link
     }).then(function() {
-      res.redirect('/posts');
+        res.redirect('/posts');
     })
 
 });
 
 router.delete('/posts/:post', function(req, res, next) {
-  knex('posts').where('id', req.params.post).del();
-  res.redirect('/posts');
+    knex('posts').where('id', req.params.post).del();
+    res.redirect('/posts');
 });
 
 
