@@ -13,10 +13,10 @@ page with form for creating user information
 GET /posts/:post/delete
 
 page with confirm button to delete individual user
-POST /posts/:postid
+POST /posts/
 
 action for new post form
-PATCH /posts/:postid
+PATCH /posts/:post
 
 action for edit route
 DELETE /posts
