@@ -14,7 +14,7 @@ router.get('/posts', function(req, res, next) {
                 .then(function(posts) {
                     knex('comments').orderBy('post_id')
                         .then(function(comments) {
-                            res.render('posts', {
+                            res.render('posts/posts', {
                                 user: user[0],
                                 posts: posts,
                                 comments: comments
@@ -31,7 +31,7 @@ router.get('/posts/:post', function(req, res, next) {
                 .then(function(post) {
                     knex('comments').where('post_id', req.params.post)
                         .then(function(comments) {
-                            res.render('single-post', {
+                            res.render('posts/single-post', {
                                 user: user,
                                 post: post,
                                 comments: comments
@@ -46,7 +46,7 @@ router.get('/posts/:post/edit', function(req, res, next) {
         .then(function(user) {
             knex('posts').where('id', req.params.post)
                 .then(function(post) {
-                    res.render('post-edit', {
+                    res.render('posts/post-edit', {
                         user: user,
                         post: post
                     })
@@ -57,7 +57,7 @@ router.get('/posts/:post/edit', function(req, res, next) {
 router.get('/posts/new', function(req, res, next) {
     knex('users').where('id', req.params.user)
         .then(function(user) {
-            res.render('new-post', {
+            res.render('posts/new-post', {
                 user: user
             })
         })
@@ -68,7 +68,7 @@ router.get('/posts/:post/delete', function(req, res, next) {
         .then(function(user) {
             knex('posts').where('id', req.params.post)
                 .then(function(post) {
-                    res.render('delete', {
+                    res.render('posts/delete', {
                         user: user,
                         post: post
                     })
