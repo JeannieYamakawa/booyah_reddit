@@ -1,11 +1,14 @@
 'use strict';
 
-
 const express = require('express');
 const router = express.Router();
 const knex = require('../knex');
 const bcrypt = require('bcrypt-as-promised');
 const methodOverride = require('method-override');
+
+router.get('/', function (req, res) {
+  res.render('index.ejs');
+});
 
 router.post('/users/:user_id/posts/:post_id/comment', function(req, res){
   var comment = req.body;
