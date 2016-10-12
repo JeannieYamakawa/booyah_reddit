@@ -18,6 +18,20 @@ router.get('/users', function(req, res) {
 });
 
 
+//Handles user registration
+router.post('/users', function(req, res) {
+    console.log(req.body);
+    bcrypt.hash(req.body.password, 10).then((hashpw) => {
+        console.log(hashpw);
+        knex('users').insert({
+            // fill your user database however you need
+        }).then((user) => {
+            console.log(user);
+            res.redirect('/users');
+        });
+    });
+});
+
 // displays all posts by individual user
 router.get('/users/:user', function(req,res){
     var userId = req.params.user;
