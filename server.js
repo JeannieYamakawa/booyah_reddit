@@ -41,6 +41,21 @@ const checkAuth = function(req, res, next) {
   next();
 }
 
+app.get('/', function(req, res, next) {
+    knex('users')
+        .then(function(users) {
+          console.log(users);
+            knex('posts').orderBy('id')
+                .then(function(posts) {
+                    res.render('index', {
+                        user: users,
+                        posts: posts,
+                        comments: comments
+                    })
+                })
+        })
+});
+
 // Declare routes variables
 const users = require('./routes/users');
 const token = require('./routes/token');
@@ -53,6 +68,7 @@ app.use(users);
 app.use(token);
 app.use('/users/:user', posts);
 app.use(comments);
+
 
 
 const port = process.env.PORT || 3000;

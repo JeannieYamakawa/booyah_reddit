@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include ../partials/htmlhead.ejs %>
-    <title>Title</title>
-  </head>
-  <body>
-    <% include ../partials/navbar.ejs %>
-    <h1>Index</h1>
-  </body>
+    <head>
+
+        <title>Title</title>
+    </head>
+    <body>
+        <% for (var p = 0; p < posts.length; p ++) { %>
+            <fieldset>
+                <div>
+                    <h1><%= user[(posts[p].user_id - 1)].username %></h1>
+                    <h2><%= posts[p].title %></h2>
+                    <h2><%= posts[p].user_id %></h2>
+                    <ul>
+                        <li><%= posts[p].body %></li>
+                        <li><%= posts[p].link %></li>
+                    </ul>
+                </div>
+            </fieldset>
+        <% } %>
+    </body>
 </html>
