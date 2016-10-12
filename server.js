@@ -49,7 +49,7 @@ const comments = require('./routes/comments')
 // Assign Routes to Server
 app.use(users);
 app.use(token);
-app.use(comments);
+app.use('/users/:id', comments);
 
 
 const port = process.env.PORT || 3000;
