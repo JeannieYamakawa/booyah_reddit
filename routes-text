@@ -1,0 +1,42 @@
+GET /posts
+
+Every post from user
+GET /posts/:post
+
+shows individual comments
+GET /posts/:post/edit
+
+edit individual post (IF IT'S YOUR POST)
+GET /posts/new
+
+page with form for creating user information
+GET /posts/:post/delete
+
+page with confirm button to delete individual user
+POST /posts/
+
+action for new post form
+PATCH /posts/:post
+
+action for edit route
+DELETE /posts
+
+action for delete route
+
+Users
+
+id
+username
+hashed_password
+Posts
+
+id
+title
+body
+link
+Comments
+
+id
+post_id
+user_id
+body
