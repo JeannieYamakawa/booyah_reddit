@@ -1,0 +1,17 @@
+<body>
+    <h1>Index</h1>
+    <% for (var p = 0; p < posts.length; p ++) { %>
+        <%= user.username %>
+        <%= posts[p].title %>
+        <%= posts[p].body %>
+        <%= posts[p].link %>
+        <ul>
+            <% for (var c = 0; c < comments.length; c ++) { %>
+                <% if (comments[c].post_id === posts[p].id) %>
+                <li>
+                    <%= comments[c].body %>
+                </li>
+            </ul>
+        <% } %>
+    <% } %>
+</body>
