@@ -52,13 +52,16 @@ router.get('/users/:user', function(req,res){
 // PATCH /users/:user
 // action for edit user info form\
 router.patch('/users/:user', function(req,res){
+    //make sure the person who's logged in is the one whose info is going to be edited
+    //grab the existing user's info from the database.
+
     var userId = req.params.user;
     var wholeUser = req.body;
     var usernameToChange = wholeUser.username;
     if (userId = req.session.user.id){
         bcrypt.hash(req.body.password, 10).then(function(hashpw){
             knex('users').update({
-                username: username,
+                username: usernameToChange,
                 hashed_password: hashpw
             })
             .then(function(){
