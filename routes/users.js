@@ -24,10 +24,11 @@ router.post('/users', function(req, res) {
     bcrypt.hash(req.body.password, 10).then((hashpw) => {
         console.log(hashpw);
         knex('users').insert({
-            // fill your user database however you need
+            username: req.body.username,
+            hashed_password: hashpw
         }).then((user) => {
-            console.log(user);
-            res.redirect('/users');
+            res.send(user);
+            // res.redirect('/users');
         });
     });
 });
@@ -44,12 +45,60 @@ router.get('/users/:user', function(req,res){
                 thisUsersPosts.push(data[i])
             }
         }
-        res.send(thisUsersPosts)
+        //needs EJS page...EJS page also includes button to edit user
+        res.send(thisUsersPosts);
     })
+})
+
+// PATCH /users/:user
+// action for edit user info form\
+router.patch('/users/:user', function(req,res){
+    //make sure the person who's logged in is the one whose info is going to be edited
+    //grab the existing user's info from the database.
+
+    var userId = req.params.user;
+    var wholeUser = req.body;
+    var usernameToChange = wholeUser.username;
+    if (userId = req.session.user.id){
+        bcrypt.hash(req.body.password, 10).then(function(hashpw){
+            knex('users').update({
+                username: usernameToChange,
+                hashed_password: hashpw
+            })
+            .then(function(){
+                res.send('we need an EJS page for this!')
+            })
+        })
+}else{
+    res.sendStatus(401);
+}
 })
 
 
 
+//page with form for editing user information
+router.get('/users/:user/edit',function(req,res){
+    var userRequestingEdit = req.params.user;
+    var userLoggedIn = req.session.user.username;
+    if (userRequestingEdit = userLoggedIn){
+    knex('users').where('id', userLoggedIn)
+        .then(function(data){
+            res.send(data)
+            //NEED TO DISPLAY EJS PAGE WITH FORM.
+        })
+    } else{
+    res.sendStatus(401);
+    }
+})
+
+//delete individual user
+router.delete('/users/:user', function(req,res) {
+    var userToDelete = req.session.user.id;
+    knex('users').where('id', userToDelete).del()
+    .then(function(){
+        res.redirect('/users')
+        })
+});
 
 
 
