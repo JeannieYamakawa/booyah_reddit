@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <% include ../partials/htmlhead.ejs %>
         <title>Title</title>
     </head>
     <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">B-Reddit</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+          </ul>
+          <% if (session.user) { %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+            </ul>
+          <% } else { %>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/signup.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+          <% } %>
+        </div>
+      </nav>
+
         <% for (var p = 0; p < posts.length; p ++) { %>
             <fieldset>
                 <div>

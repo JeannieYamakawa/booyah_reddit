@@ -7,7 +7,8 @@ const bcrypt = require('bcrypt-as-promised');
 const methodOverride = require('method-override');
 
 router.get('/', function (req, res) {
-  res.render('index.ejs');
+  let session = req.session;
+  res.render('index.ejs', {session:session});
 });
 
 router.post('/users/:user_id/posts/:post_id/comment', function(req, res){

@@ -62,7 +62,6 @@ const token = require('./routes/token');
 const posts = require('./routes/posts');
 const comments = require('./routes/comments')
 
-
 // Assign Routes to Server
 app.use(users);
 app.use(token);
