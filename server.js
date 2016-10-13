@@ -42,6 +42,7 @@ const checkAuth = function(req, res, next) {
 }
 
 app.get('/', function(req, res, next) {
+  let session = req.session;
     knex('users')
         .then(function(users) {
           console.log(users);
@@ -50,7 +51,8 @@ app.get('/', function(req, res, next) {
                     res.render('index', {
                         user: users,
                         posts: posts,
-                        comments: comments
+                        comments: comments,
+                        session: session
                     })
                 })
         })
